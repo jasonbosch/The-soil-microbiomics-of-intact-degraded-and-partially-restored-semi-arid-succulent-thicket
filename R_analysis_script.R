@@ -114,7 +114,7 @@ summary(aov.observed)
 TukeyHSD(aov.observed)
 #Box plot
 Alpha_observed <- ggplot (table_alpha_diversity, aes( x= Zone, y = Observed, fill = Zone)) + geom_boxplot() + 
-  geom_point (aes(fill = Zone), size = 3, position = position_jitterdodge()) + theme_classic() + 
+  geom_point (aes(fill = Zone), size = 2, position = position_jitterdodge()) + theme_classic() + 
   scale_fill_manual(values = site_colours) +
   theme(legend.position = "none") +
   geom_signif(comparisons = list(c("Intact","Degraded"),c("Degraded","Restored"),c("Intact","Restored")), y_position = c(max(table_alpha_diversity$Observed)*1.05,(max(table_alpha_diversity$Observed))*1.1,(max(table_alpha_diversity$Observed))*1.15),map_signif_level=TRUE, colour="black")
@@ -126,7 +126,7 @@ summary(aov.Shannon)
 TukeyHSD(aov.Shannon)
 #Box plot
 Alpha_Shannon = ggplot (table_alpha_diversity, aes( x= Zone, y = Shannon, fill = Zone)) + geom_boxplot() + 
-  geom_point (aes(fill = Zone), size = 3, position = position_jitterdodge())+theme_classic() + 
+  geom_point (aes(fill = Zone), size = 2, position = position_jitterdodge())+theme_classic() + 
   scale_fill_manual(values = site_colours) + 
   theme(legend.position = "none") +
   geom_signif(comparisons = list(c("Intact","Degraded"),c("Degraded","Restored"),c("Intact","Restored")), y_position = c(max(table_alpha_diversity$Shannon)*1.005,(max(table_alpha_diversity$Shannon))*1.01,(max(table_alpha_diversity$Shannon))*1.015),map_signif_level=TRUE, colour="black")
@@ -135,7 +135,7 @@ Alpha_Shannon = ggplot (table_alpha_diversity, aes( x= Zone, y = Shannon, fill =
 Alpha_observed <- Alpha_observed + labs(tag = "A")
 Alpha_Shannon <- Alpha_Shannon + labs(tag = "B")
 Alpha_fig <- grid.arrange(Alpha_observed,Alpha_Shannon,ncol=2)
-ggsave(filename = paste("Supplementary Figure S5.eps",sep=""), Alpha_fig, width = 16, height = 9, dpi = 300)
+ggsave(filename = paste("Supplementary Figure S5.eps",sep=""), Alpha_fig, width = 8, height = 4.5, dpi = 300)
 
 #####################
 
@@ -204,7 +204,7 @@ RA_bact_genus_sub = plot_bar(physeq_dominant_genus_sub, fill = "Genus") + labs(x
 RA_bact_fig = plot_bar(physeq_dominant, fill = "Phylum") + labs(x="Sample", y = "Abundance") + facet_wrap(~Zone, scales = "free_x", nrow = 1) + geom_bar(stat = "identity", position = "fill", colour = "black") + scale_fill_manual(values = phylum_colours) + labs(tag = "A")
 RA_bact_genus_sub_fig = plot_bar(physeq_dominant_genus_sub, fill = "Genus") + labs(x="Sample", y = "Abundance") + facet_wrap(~Zone, scales = "free_x", nrow = 1) + geom_bar(stat = "identity", position = "fill", colour = "black")  + scale_fill_manual(values = genus_colours) + labs(tag = "B")
 RA_fig <- grid.arrange(RA_bact_fig,RA_bact_genus_sub_fig,ncol=2)
-ggsave(filename = paste("Figure 3.eps",sep=""), RA_fig, width = 16, height = 9, dpi = 300)
+ggsave(filename = paste("Figure 3.eps",sep=""), RA_fig, width = 14, height = 6.75, dpi = 300)
 
 #Create a table to compare relative abundance of genera
 RA_table_genus_2 <- as.data.frame(otu_table(physeq_dominant_genus))
@@ -470,7 +470,7 @@ netcolours <- brewer.pal(6, "Dark2")
 
 #Analyse partial network and plot
 netprops_partial <- netAnalyze(network_partial, clustMethod = "cluster_fast_greedy")
-cairo_ps(file = "Fig6.eps", width = 16, height = 9, onefile = FALSE, fallback_resolution = 300)
+cairo_ps(file = "Fig6.eps", width = 12, height = 6.75, onefile = FALSE, fallback_resolution = 300)
 partial.plot <- plot(netprops_partial, sameLayout = FALSE, layoutGroup = 1, groupNames = c("Intact","Degraded"), labels = as.character(tax_table(physeq_exp_pruned_genus_filt_group)[colnames(network_partial$countMat1),"Genus"]),
                      shortenLabels = "none", labelScale = FALSE, rmSingles = "inboth", nodeTransp = 65, borderCol = "gray60", hubTransp = 50, hubBorderWidth = 2, hubBorderCol = "gray80",
                      edgeTranspLow = 70, edgeTranspHigh = 30, cexLabels = 0.8, showTitle = TRUE, mar = c(1,3,3,4),
@@ -583,7 +583,7 @@ Soil_Density <- nbchem[["Density"]] + labs(tag = "E")
 p1 <- grid.arrange(RDA_Phylum,RDA_Genus,ncol=2)
 p2 <- grid.arrange(Soil_pH,Soil_Ratio.Ca.Mg,Soil_Density,ncol=3)
 p3 <- grid.arrange(p1,p2,nrow=2)
-ggsave(filename = paste("Figure 5.eps",sep=""), p3, width = 16, height = 9, dpi = 300)
+ggsave(filename = paste("Figure 5.eps",sep=""), p3, width = 12, height = 8, dpi = 300)
 
 
 #####
@@ -617,7 +617,7 @@ Zone_graph_loadings2 <- Zone_graph2 +
 
 #Save figure (with previous PCoA)
 Fig2 <- grid.arrange(Zone_graph_loadings2 + labs(tag = "A"), PCoA_phyloseq_Jaccard + labs(tag = "B"), nrow = 1)
-ggsave(filename = paste("Figure 2.eps",sep=""), Fig2, width = 16, height = 9, dpi = 300)
+ggsave(filename = paste("Figure 2.eps",sep=""), Fig2, width = 12, height = 6.75, dpi = 300)
 
 ######iButton Analysis#####
 
